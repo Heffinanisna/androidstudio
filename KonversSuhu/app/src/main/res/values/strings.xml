@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">KonversSuhu</string>
+    <string-array name="pilihan">
+        <item>Celcius to Reamur</item>
+        <item>Celcius to Fahreinheit</item>
+        <item>Celcius to Kelvin</item>
+        <item>Reamur to Celcius</item>
+        <item>Reamur to Fahreinheit</item>
+    </string-array>
 </resources>
