@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -35,6 +36,13 @@ public class SiswaAdapter extends RecyclerView.Adapter<SiswaAdapter.ViewHolder> 
         Siswa siswa = siswaList.get(i);
         ViewHolder.tvnama.setText(siswa.getnama());
         ViewHolder.tvalamat.setText(siswa.getAlamat());
+
+        ViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, "nama : "+siswa.getnama()+"alamat: "+siswa.getAlamat(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
