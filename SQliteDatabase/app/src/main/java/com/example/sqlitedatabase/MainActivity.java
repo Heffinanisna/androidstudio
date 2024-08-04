@@ -1,8 +1,10 @@
 package com.example.sqlitedatabase;
 
+import android.annotation.SuppressLint;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -12,12 +14,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     Database db;
     EditText etbarang,etstok,etharga;
     TextView tvpilihan;
+
+    List<Barang> databarang = new ArrayList<Barang>();
+    BarangAdapter adapter;
+    RecyclerView rcvbarang;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +52,10 @@ public class MainActivity extends AppCompatActivity {
         etstok = findViewById(R.id.etstok);
         etharga = findViewById(R.id.etharga);
         tvpilihan = findViewById(R.id.tvpilihan);
+        rcvbarang = findViewById(R.id.rcvbarang);
+
+        rcvbarang.setLayoutManager(new LinearLayoutManager(this));
+        rcvbarang.setHasFixedSize(true);
     }
 
     public void simpan (View v){
@@ -77,6 +92,23 @@ public class MainActivity extends AppCompatActivity {
     public void selectData (){
         String sql = "SELECT*FROM tblbarang ORDER BY barang ASC";
         Cursor cursor = db.select(sql);
-        pesan(cursor.getCount()+"");
+        databarang.clear();
+        if (cursor.getCount() > 0){
+            while (cursor.moveToNext()){
+                @SuppressLint("Range") String idbarang = cursor.getString(cursor.getColumnIndex("idbarang"));
+                @SuppressLint("Range") String barang = cursor.getString(cursor.getColumnIndex("barang"));
+                @SuppressLint("Range") String stok = cursor.getString(cursor.getColumnIndex("stok"));
+                @SuppressLint("Range") String harga = cursor.getString(cursor.getColumnIndex("harga"));
+
+                databarang.add(new Barang(idbarang,barang,stok,harga));
+            }
+
+            adapter = new BarangAdapter(this,databarang);
+            rcvbarang.setAdapter(adapter);
+            adapter.notify();
+
+        }else {
+            pesan("Data Kosong");
+        }
     }
 }
