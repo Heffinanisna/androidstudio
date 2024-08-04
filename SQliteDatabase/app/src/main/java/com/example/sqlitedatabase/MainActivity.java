@@ -30,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
     BarangAdapter adapter;
     RecyclerView rcvbarang;
 
+    String idbarang;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -121,5 +123,19 @@ public class MainActivity extends AppCompatActivity {
         }else {
             pesan("Data Tidak Bisa Dihapus");
         }
+    }
+
+    @SuppressLint("Range")
+    public void selectupdate (String id){
+        idbarang = id;
+        String sql = "SELECT * FROM tblbabrang WHRE idbarang = "+id+";";
+        Cursor cursor = db.select(sql);
+        cursor.moveToNext();
+
+        etbarang.setText(cursor.getString(cursor.getColumnIndex("barang")));
+        etstok.setText(cursor.getString(cursor.getColumnIndex("stok")));
+        etharga.setText(cursor.getString(cursor.getColumnIndex("harga")));
+
+        tvpilihan.setText("update");
     }
 }

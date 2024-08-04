@@ -56,7 +56,7 @@ public class BarangAdapter {
                             Switch (item.getItemId()){
 
                                 case R.id.ubah :
-                                    Toast.makeText(context, "UBAH", Toast.LENGTH_SHORT).show();
+                                    ((MainActivity)context).selectupdate(barangList.get(i).getIdbarang());
                                     break;
 
                                 case R.id.hapus :
