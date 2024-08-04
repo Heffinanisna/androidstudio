@@ -60,7 +60,7 @@ public class BarangAdapter {
                                     break;
 
                                 case R.id.hapus :
-                                    Toast.makeText(context, "HAPUS", Toast.LENGTH_SHORT).show();
+                                    ((MainActivity)context).deletedata(barangList.get(i).getIdbarang());
                                     break;
                             }
 
