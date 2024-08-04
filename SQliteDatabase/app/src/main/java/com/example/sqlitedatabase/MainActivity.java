@@ -53,7 +53,11 @@ public class MainActivity extends AppCompatActivity {
             if (pilihan.equals("insert")){
                 pesan("insert");
                 String sql = "INSERT INTO tblbarang (barang,stok,harga) VALUES ('"+barang+"',"+stok+","+harga+")";
-                pesan(sql);
+                if (db.runSQL()){
+                    pesan("insert berhasil");
+                }else {
+                    pesan("insert gagal");
+                }
             }else{
                 pesan("update");
             }
